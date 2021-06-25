@@ -2,3 +2,11 @@
  width: 100vw;
  height: 100vh;
 }
+.chatbotListOptionsBox {
+    border-radius: 10px !important;
+    background-color: dodgerblue;
+  }
+  .list-group-item{
+    background-color: rgb(223, 240, 255) !important;
+    color: dodgerblue;
+}

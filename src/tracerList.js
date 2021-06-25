@@ -1,3 +1,4 @@
+
 const Trackers = ({Driver}) => {
     return (
         <div id="divmap">
@@ -14,7 +15,7 @@ const Trackers = ({Driver}) => {
                                     <a href="#" className=" card-title float-right">show all</a>
                                     </div>                                    
                                 </div>
-                                <li className="list-group-item">{Driver.vehicleInfo}</li>
+                                <li style={{color:"dodgerblue"}} className="list-group-item chatbotListOptionsBox"><i className="fas fa-camera"></i>{Driver.vehicleInfo}</li>
                             </div>
                         </div>
                     </div>

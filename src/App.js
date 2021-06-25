@@ -3,8 +3,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import Trackers from './tracerList';
 import { Icon } from 'leaflet';
 import './App.css';
-var driverA = {
-  vehicleInfo: "KAY 747E",
+var driverB = {
+  vehicleInfo: "KAY 800E",
   vehicleSize: "27 Tonnes",
   cargoType: "Flatbed",
   goodsType: "Rice",
@@ -50,7 +50,6 @@ const LocationMarker = () => {
   const [position, setPosition] = useState([-1.298982, 36.776811]);
   const [currentPosition, setCurrentPosition] = useState("Nairobi, Kilimani");
   const [timer, setTimer] = useState(5000);
-  const map = useMap();
   var today = new Date();
   useEffect(() => {
 
@@ -68,8 +67,10 @@ const LocationMarker = () => {
        setPosition(locations[index]);
       index++;
      
-    } else {
+    } else {     
+      setTimer(20000) 
       setPosition([-1.300355, 36.773850]);
+      setDriver(driverB);
     }
   }, []);
   
