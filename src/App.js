@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap,Tooltip } from 'react-leaflet'
 import { useEffect, useState, useCallback } from 'react';
 import { Icon } from 'leaflet';
 import './App.css';
@@ -11,7 +11,8 @@ var driverA = {
   currentlocation: "Nairobi, Kenya",
 }
 var locations = [
-  [-1.297459, 36.776747]
+  [-1.298982, 36.776811],
+  [-1.297459, 36.776747],
   [-1.296193, 36.776726],
   [-1.296097, 36.779236],
   [-1.296151, 36.777637],
@@ -47,11 +48,15 @@ const LocationMarker = () => {
   });
   const [position, setPosition] = useState([-1.298982, 36.776811]);
   const [currentPosition, setCurrentPosition] = useState("Nairobi, Kilimani");
-  const map = useMap()
+  const [timer, setTimer] = useState(5000);
+  const map = useMap();
+  var today = new Date();
   useEffect(() => {
+
     const interval = setInterval(() => {
       updateLocation();
-    }, 5000);
+      setDriver({...driver,lastlocation: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+' hrs'})
+    }, timer);
     return () => {
       clearInterval(interval);
     };
@@ -59,14 +64,14 @@ const LocationMarker = () => {
 
   const updateLocation = useCallback(() => {
     if (locations.length > index) {
+       setPosition(locations[index]);
       index++;
-      setPosition(locations[index]);
-      setCurrentPosition("What")
+     
     } else {
-      return;
+      setPosition([-1.300355, 36.773850]);
     }
   }, []);
-  var today = new Date();
+  
   const [driver, setDriver] = useState({
     vehicleInfo: "KAY 747E",
     vehicleSize: "27 Tonnes",
@@ -81,40 +86,13 @@ const LocationMarker = () => {
       <Popup>
         <div>
           <h2> {driver.vehicleInfo}</h2>
-          <h4> {driver.vehicleSize} | {driver.cargoType} | {driver.goodsType}</h4>
-          <h4> Location: {driver.currentlocation}</h4>
-          <h4> Location updated: {driver.lastlocation}</h4>
+          <p> <strong>{driver.vehicleSize}</strong> | {driver.cargoType} | {driver.goodsType}</p>
+          <p> Location: {driver.currentlocation}</p>
+          <p> Location updated: {driver.lastlocation}</p>
         </div>
       </Popup>
+      <Tooltip>Driver A</Tooltip>
     </Marker>
   )
 }
-const CurrLocationMarker = () => {
-  const vehicleIcon = new Icon({
-    iconUrl: '/25_freight.png',
-    iconSize: [30, 30]
-  });
-  const [position, setPosition] = useState(null);
-  const map = useMapEvents({
-    click() {
-      map.locate()
-    },
-    locationfound(e) {
-      setPosition(e.latlng)
-      map.flyTo(e.latlng, map.getZoom())
-    },
-  });
 
-  return position === null ? null : (
-    <Marker position={position} icon={vehicleIcon} >
-      <Popup>
-        <div>
-          <h2> {driverA.vehicleInfo}</h2>
-          <h4> {driverA.vehicleSize} | {driverA.cargoType} | {driverA.goodsType}</h4>
-          <h4> Location: {driverA.currentlocation}</h4>
-          <h4> Location updated: {driverA.lastlocation}</h4>
-        </div>
-      </Popup>
-    </Marker>
-  )
-}
