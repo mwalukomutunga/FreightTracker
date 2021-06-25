@@ -1,5 +1,6 @@
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap,Tooltip } from 'react-leaflet'
-import { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import Trackers from './tracerList';
 import { Icon } from 'leaflet';
 import './App.css';
 var driverA = {
@@ -82,7 +83,8 @@ const LocationMarker = () => {
   });
   
   return position === null ? null : (
-    <Marker position={position} icon={vehicleIcon} >
+   <React.Fragment>
+       <Marker position={position} icon={vehicleIcon} >
       <Popup>
         <div>
           <h2> {driver.vehicleInfo}</h2>
@@ -93,6 +95,8 @@ const LocationMarker = () => {
       </Popup>
       <Tooltip>Driver A</Tooltip>
     </Marker>
+    <Trackers Driver ={driver}/>
+   </React.Fragment>
   )
 }
 
