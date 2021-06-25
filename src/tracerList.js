@@ -1,4 +1,4 @@
-
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 const Trackers = ({Driver}) => {
     return (
         <div id="divmap">
@@ -8,14 +8,14 @@ const Trackers = ({Driver}) => {
                         <div className="card" style={{ width: '12rem' }} >
                             <div className="card-body">
                                 <div className="row">
-                                    <div class="col">
+                                    <div className="col">
                                         <p className="card-title float-left">Tracers</p>
                                     </div>
-                                    <div class="col">
+                                    <div className="col">
                                     <a href="#" className=" card-title float-right">show all</a>
                                     </div>                                    
                                 </div>
-                                <li style={{color:"dodgerblue"}} className="list-group-item chatbotListOptionsBox"><i className="fas fa-camera"></i>{Driver.vehicleInfo}</li>
+                                <li style={{color:"dodgerblue"}} className="list-group-item chatbotListOptionsBox"><LocalShippingIcon/>   {Driver.vehicleInfo}</li>
                             </div>
                         </div>
                     </div>
